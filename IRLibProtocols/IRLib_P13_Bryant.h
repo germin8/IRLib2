@@ -8,6 +8,8 @@
  * Ductless heat pump with remote control model RG52F3/BGEFU1
  * It consists of zzzzzzzzz
  */
+#include "bryant_checksum.h"
+
 #ifndef IRLIB_PROTOCOL_13_H
 #define IRLIB_PROTOCOL_13_H
 #define IR_SEND_PROTOCOL_13		case 13: IRsendBryant::send(data); break;
@@ -24,6 +26,7 @@
 class IRsendBryant: public virtual IRsendBase {
   public:
     void send(uint32_t address) {
+      uint32_t *bytes = (uint32_t *)address;
       enableIROut(38);
       mark(500*9); space(500*8);	//Send header
       for (int i = 0; i < 6; i++)
